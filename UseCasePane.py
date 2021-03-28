@@ -22,44 +22,44 @@ class UseCasePane:
         '''
         self.paneID = paneID
 
-        self.tcfWeights = {
-                            "2.0": '',
-                            "1.0": '',
-                            "1.0": '',
-                            "1.0": '',
-                            "1.0": '',
-                            "0.5": '',
-                            "0.5": '',
-                            "2.0": '',
-                            "1.0": '',
-                            "1.0": '',
-                            "1.0": '',
-                            "1.0": '',
-                            "1.0": ''
-        }
+        self.tcfWeights = [
+            {2.0: 0},
+            {1.0: 0},
+            {1.0: 0}, #CHANGE TO LIST OF 0'S
+            {1.0: 0},
+            {1.0: 0},
+            {0.5: 0},
+            {0.5: 0},
+            {2.0: 0},
+            {1.0: 0},
+            {1.0: 0},
+            {1.0: 0},
+            {1.0: 0},
+            {1.0: 0},
+        ]
 
         self.ecfWeights = [
-                                1.5,
-                                0.5,
-                                1.0,
-                                0.5,
-                                1.0,
-                                2.0,
-                                -1.0,
-                                2.0
-                        ]
+            {1.5: 0},
+            {0.5: 0},
+            {1.0: 0},
+            {0.5: 0},
+            {1.0: 0},
+            {2.0: 0},
+            {-1.0: 0},
+            {2.0: 0},
+        ]
 
-        self.uucw = {
-            'simple': 5.0,
-            'average': 10.0,
-            'complex': 15.0
-        }
+        self.uucw = [
+            0,
+            0,
+            0,
+        ]
 
-        self.uaw = {
-            'simple': 1.0,
-            'average': 2.0,
-            'complex': 3.0
-        }
+        self.uaw = [
+            0,
+            0,
+            0,
+        ]
 
         self.tcfTotalFactors = 0
         self.tcf = 0 # tcf = 0.6 * (.01*techFactors)
@@ -89,6 +89,30 @@ class UseCasePane:
     def get_ID(self):
         return self.paneID
     
+    def get_tcfWeights(self):
+        return self.tcfWeights
+    
+    def set_tcfWeights(self, tcfweights):
+        self.tcfWeights = tcfweights
+
+    def get_ecfWeights(self):
+        return self.ecfWeights
+
+    def set_ecfWeights(self, ecfweights):
+        self.ecfWeights = ecfweights
+
+    def get_uucw(self):
+        return self.uucw
+    
+    def set_uucw(self, uucw):
+        self.uucw = uucw
+    
+    def get_uaw(self):
+        return self.uaw
+    
+    def set_uaw(self, uaw):
+        self.uaw = uaw
+
     def get_tcfTotalFactors(self):
         return self.tcfTotalFactors
     

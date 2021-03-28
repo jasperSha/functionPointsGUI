@@ -38,6 +38,7 @@ class MyWeightFactorsTab(QWidget, Ui_WeightFactorsTab):
         self.computedFP = pane.get_computedFP()
         self.selectedLanguage = pane.get_selectedLanguage()
         self.codeSize = pane.get_codeSize()
+
         
         if loaded:
             self.load_data()

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'MainWindow.ui'
+# Form implementation generated from reading ui file 'NewMainWindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.3
 #
@@ -33,6 +33,8 @@ class Ui_MainWindow(object):
         self.menuMetrics.setObjectName("menuMetrics")
         self.menuFunction_Points = QtWidgets.QMenu(self.menuMetrics)
         self.menuFunction_Points.setObjectName("menuFunction_Points")
+        self.menuUse_Case_Points = QtWidgets.QMenu(self.menuMetrics)
+        self.menuUse_Case_Points.setObjectName("menuUse_Case_Points")
         self.menuHelp = QtWidgets.QMenu(self.menubar)
         self.menuHelp.setObjectName("menuHelp")
         MainWindow.setMenuBar(self.menubar)
@@ -54,6 +56,9 @@ class Ui_MainWindow(object):
         self.enterFPDataButton.setObjectName("enterFPDataButton")
         self.actionExit_2 = QtWidgets.QAction(MainWindow)
         self.actionExit_2.setObjectName("actionExit_2")
+        self.enterUseCasePoints = QtWidgets.QAction(MainWindow)
+        self.enterUseCasePoints.setEnabled(False)
+        self.enterUseCasePoints.setObjectName("enterUseCasePoints")
         self.menuFile.addAction(self.actionNew)
         self.menuFile.addAction(self.actionOpen)
         self.menuFile.addAction(self.actionSave)
@@ -61,7 +66,9 @@ class Ui_MainWindow(object):
         self.menuFile.addAction(self.actionExit_2)
         self.menuPreferences.addAction(self.changeLanguageButton)
         self.menuFunction_Points.addAction(self.enterFPDataButton)
+        self.menuUse_Case_Points.addAction(self.enterUseCasePoints)
         self.menuMetrics.addAction(self.menuFunction_Points.menuAction())
+        self.menuMetrics.addAction(self.menuUse_Case_Points.menuAction())
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuEdit.menuAction())
         self.menubar.addAction(self.menuPreferences.menuAction())
@@ -79,6 +86,7 @@ class Ui_MainWindow(object):
         self.menuPreferences.setTitle(_translate("MainWindow", "Preferences"))
         self.menuMetrics.setTitle(_translate("MainWindow", "Metrics"))
         self.menuFunction_Points.setTitle(_translate("MainWindow", "Function Points"))
+        self.menuUse_Case_Points.setTitle(_translate("MainWindow", "Use Case Points"))
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
         self.actionNew.setText(_translate("MainWindow", "New"))
         self.actionOpen.setText(_translate("MainWindow", "Open"))
@@ -87,3 +95,4 @@ class Ui_MainWindow(object):
         self.changeLanguageButton.setText(_translate("MainWindow", "Language"))
         self.enterFPDataButton.setText(_translate("MainWindow", "Enter FP Data"))
         self.actionExit_2.setText(_translate("MainWindow", "Exit"))
+        self.enterUseCasePoints.setText(_translate("MainWindow", "Enter Use Case Data"))

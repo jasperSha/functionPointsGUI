@@ -3,12 +3,15 @@ import sys
 
 from Project import Project
 from Pane import Pane
+from UseCasePane import UseCasePane
 
 from generated_ui.prod_ui.MainWindow import *
 
 from MyNewProjectWindow import MyNewProjectWindow
 from MyWeightFactorsTab import MyWeightFactorsTab
+from MyUCPTab import MyUCPTab
 from MyFPPaneNameInput import MyFPPaneNameDialog
+from MyUCPPaneNameInput import MyUCPPaneNameInput
 from MySelectLanguageWindow import MySelectLanguageWindow
 
 from PyQt5.QtWidgets import QFileDialog, QTabWidget, QVBoxLayout, QWidget, QMainWindow
@@ -55,6 +58,9 @@ class App(QMainWindow, Ui_MainWindow):
 
         #enter FP data
         self.enterFPDataButton.triggered.connect(self.enter_function_points)
+
+        #calculate use case points
+        self.enterUseCasePoints.triggered.connect(self.calculate_ucp)
     
     def set_language_preference(self):
         self.window = QtWidgets.QDialog()
@@ -75,6 +81,24 @@ class App(QMainWindow, Ui_MainWindow):
             App.currentProject.remove_pane(index)
             widget.deleteLater()
         self.tabs.removeTab(index)
+    
+    def calculate_ucp(self):
+        self.window = QtWidgets.QDialog()
+        self.ui = MyUCPPaneNameInput(self.window)
+        self.window.setWindowModality(QtCore.Qt.ApplicationModal)
+        self.window.show()
+        rsp = self.window.exec_()
+
+        if rsp == QtWidgets.QDialog.Accepted:
+            paneName = self.ui.getPaneName()
+
+            defaultPane = UseCasePane(paneID=paneName)
+            tab = QWidget()
+            App.currentProject.add_pane_tab(MyUCPTab(tab, pane=defaultPane))
+
+            index = self.tabs.addTab(tab, paneName)
+            self.tabs.setCurrentIndex(index)
+
 
     def enter_function_points(self):
         self.window = QtWidgets.QDialog()
@@ -105,6 +129,7 @@ class App(QMainWindow, Ui_MainWindow):
         if rsp == QtWidgets.QDialog.Accepted:
             App.currentProject.reset()
             self.enterFPDataButton.setEnabled(True)
+            self.enterUseCasePoints.setEnabled(True)
             projectDetails = ui.getNewProjectParams()
 
             App.currentProject.set_project_name(projectDetails['projectName'])
@@ -137,6 +162,7 @@ class App(QMainWindow, Ui_MainWindow):
 
             #if user opening project from fresh run
             self.enterFPDataButton.setEnabled(True)
+            self.enterUseCasePoints.setEnabled(True)
 
             self.layout = QVBoxLayout()
             self.tabs = QTabWidget()
