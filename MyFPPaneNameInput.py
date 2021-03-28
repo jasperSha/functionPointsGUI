@@ -1,4 +1,4 @@
-from generated_ui.FPPaneNameInput import *
+from generated_ui.prod_ui.FPPaneNameInput import *
 from PyQt5.QtWidgets import *
 
 class MyFPPaneNameDialog(Ui_FPPaneNameInputWindow):

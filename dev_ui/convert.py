@@ -100,7 +100,7 @@ class Transfer:
         '''
         for uifile in self.list:
             pyfile = self.transPyFile(uifile)
-            cmd = 'mv {pyfile} ../generated_ui'.format(pyfile=pyfile)
+            cmd = 'mv {pyfile} ../generated_ui/dev_ui'.format(pyfile=pyfile)
             print(cmd)
             os.system(cmd)
 

@@ -1,4 +1,4 @@
-from generated_ui.NewProjectWindow import *
+from generated_ui.prod_ui.NewProjectWindow import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QRegExpValidator
 from PyQt5.QtCore import QRegExp

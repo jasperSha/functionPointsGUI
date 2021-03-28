@@ -1,6 +1,6 @@
 from Pane import Pane
 
-from generated_ui.WeightFactorsTab import *
+from generated_ui.prod_ui.WeightFactorsTab import *
 
 from MyValueAdjustmentFactorsWindow import MyValueAdjustmentFactorsWindow
 from MySelectLanguageWindow import MySelectLanguageWindow

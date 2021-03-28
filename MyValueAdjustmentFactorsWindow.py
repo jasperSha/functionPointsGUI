@@ -1,4 +1,4 @@
-from generated_ui.ValueAdjustmentFactorsWindow import *
+from generated_ui.prod_ui.ValueAdjustmentFactorsWindow import *
 from PyQt5.QtWidgets import *
 
 

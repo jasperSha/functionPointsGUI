@@ -1,4 +1,4 @@
-from generated_ui.SelectLanguageWindow import *
+from generated_ui.prod_ui.SelectLanguageWindow import *
 from PyQt5.QtWidgets import *
 
 class MySelectLanguageWindow(QDialog, Ui_SelectLanguageWindow):

@@ -4,7 +4,7 @@ import sys
 from Project import Project
 from Pane import Pane
 
-from generated_ui.MainWindow import *
+from generated_ui.prod_ui.MainWindow import *
 
 from MyNewProjectWindow import MyNewProjectWindow
 from MyWeightFactorsTab import MyWeightFactorsTab
@@ -158,7 +158,6 @@ class App(QMainWindow, Ui_MainWindow):
 
             #get pane objects (not the tabs)
             for loadPane in loadProject.get_panes():
-
                 newPane = Pane(loadPane.get_name())
                 newPane.set_VAF(loadPane.get_VAF())
                 newPane.set_codeSize(loadPane.get_codeSize())
