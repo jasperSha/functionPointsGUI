@@ -22,84 +22,83 @@ class UseCasePane:
         '''
         self.paneID = paneID
 
-        self.tcfWeights = [
-            {2.0: 0},
-            {1.0: 0},
-            {1.0: 0}, #CHANGE TO LIST OF 0'S
-            {1.0: 0},
-            {1.0: 0},
-            {0.5: 0},
-            {0.5: 0},
-            {2.0: 0},
-            {1.0: 0},
-            {1.0: 0},
-            {1.0: 0},
-            {1.0: 0},
-            {1.0: 0},
+        self.tcfFactors = [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
         ]
 
-        self.ecfWeights = [
-            {1.5: 0},
-            {0.5: 0},
-            {1.0: 0},
-            {0.5: 0},
-            {1.0: 0},
-            {2.0: 0},
-            {-1.0: 0},
-            {2.0: 0},
+        self.ecfFactors = [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
         ]
 
         self.uucw = [
-            0,
-            0,
-            0,
+            0.0,
+            0.0,
+            0.0,
         ]
 
         self.uaw = [
-            0,
-            0,
-            0,
+            0.0,
+            0.0,
+            0.0,
         ]
 
-        self.tcfTotalFactors = 0
-        self.tcf = 0 # tcf = 0.6 * (.01*techFactors)
 
-        self.ecfTotalFactors = 0
-        self.ecf = 0 # ecf = 1.4 + (-0.03 * envFactors)
+        self.tcf = 0.0 # tcf = 0.6 * (.01*techFactors)
+        self.ecf = 0.0 # ecf = 1.4 + (-0.03 * envFactors)
 
-        self.uucwTotal = 0
-        self.uawTotal = 0
-        self.uucp = 0 # uucp = uaw + uucw
+        self.uucwTotal = 0.0
+        self.uawTotal = 0.0
+        self.uucp = 0.0 # uucp = uaw + uucw
 
-        
-        self.PF = 0
-        self.ucp = 0 # ucp = tcf * ecf * uucp * PF
+        self.PF = 0.0
+        self.ucp = 0.0 # ucp = tcf * ecf * uucp * PF
 
-        self.locucp = 0 # loc per UCP
-        self.locPM = 0 # loc per programmer month
+        self.locucp = 0.0 # loc per UCP
+        self.locPM = 0.0 # loc per programmer month
 
-        self.estLOC = 0 # estLOC = locucp * ucp
-        self.estPM = 0 # estPM = estLOC / locPM
-        self.estHours = 0 # estHours = estPM * 1600 (40 hour weeks, 4 weeks/month)
-        self.output = [self.ucp, self.estHours, self.estLOC, self.estPM]
+        self.estLOC = 0.0 # estLOC = locucp * ucp
+        self.estPM = 0.0 # estPM = estLOC / locPM
+        self.estHours = 0.0 # estHours = estPM * 1600 (40 hour weeks, 4 weeks/month)
     
     def __repr__(self):
         return f"{self.paneID}"
+    
+    def is_ucp_pane(self):
+        return True
 
     def get_ID(self):
         return self.paneID
     
-    def get_tcfWeights(self):
-        return self.tcfWeights
+    def get_tcfFactors(self):
+        return self.tcfFactors
     
-    def set_tcfWeights(self, tcfweights):
-        self.tcfWeights = tcfweights
+    def set_tcfFactors(self, tcffactors):
+        self.tcfFactors = tcffactors
 
-    def get_ecfWeights(self):
-        return self.ecfWeights
+    def get_ecfFactors(self):
+        return self.ecfFactors
 
-    def set_ecfWeights(self, ecfweights):
-        self.ecfWeights = ecfweights
+    def set_ecfFactors(self, ecffactors):
+        self.ecfFactors = ecffactors
 
     def get_uucw(self):
         return self.uucw
@@ -112,12 +111,6 @@ class UseCasePane:
     
     def set_uaw(self, uaw):
         self.uaw = uaw
-
-    def get_tcfTotalFactors(self):
-        return self.tcfTotalFactors
-    
-    def set_tcfTotalFactors(self, tcfFactors):
-        self.tcfTotalFactors = tcfFactors
     
     def get_tcf(self):
         return self.tcf
@@ -125,12 +118,6 @@ class UseCasePane:
     def set_tcf(self, tcf):
         self.tcf = tcf
     
-    def get_ecfTotalFactors(self):
-        return self.ecfTotalFactors
-    
-    def set_ecfTotalFactors(self, ecfFactors):
-        self.ecfTotalFactors = ecfFactors
-
     def get_ecf(self):
         return self.ecf
     
@@ -197,12 +184,3 @@ class UseCasePane:
     def set_estHours(self, esthours):
         self.estHours = esthours
     
-    def get_output(self):
-        return self.output
-    
-    def set_output(self, output):
-        self.output = output
-
-    
-    
-

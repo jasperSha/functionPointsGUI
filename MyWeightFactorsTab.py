@@ -89,6 +89,9 @@ class MyWeightFactorsTab(QWidget, Ui_WeightFactorsTab):
         self.computeCodeSizeButton.clicked.connect(self.compute_code_size)
         self.changeLanguageButton.clicked.connect(self.change_language)
 
+    def is_ucp_pane(self):
+        return False
+      
     def load_data(self):
         ei_input = self.inputValues['externalInputsInput']
         eo_input = self.inputValues['externalOutputsInput']
@@ -158,7 +161,7 @@ class MyWeightFactorsTab(QWidget, Ui_WeightFactorsTab):
             displayLang = 'C#'
         self.currentLanguageOutput.setText(displayLang)
 
-    def get_paneName(self):
+    def get_name(self):
         return self.paneName
 
     def get_inputValues(self):
@@ -260,9 +263,12 @@ class MyWeightFactorsTab(QWidget, Ui_WeightFactorsTab):
         self.window.setWindowModality(QtCore.Qt.ApplicationModal)
         self.window.show()
         rsp = self.window.exec_()
-        
-        if rsp == 0:
-            self.VAF = self.ui.get_VAF()
+
+        if rsp == 1:
+            self.VAF = self.ui.get_newVAF()
+            self.valueAdjustmentsOutput.setText(str(sum(self.VAF)))
+        else:
+            self.VAF = self.ui.get_oldVAF()
             self.valueAdjustmentsOutput.setText(str(sum(self.VAF)))
 
     def change_language(self):
@@ -272,7 +278,7 @@ class MyWeightFactorsTab(QWidget, Ui_WeightFactorsTab):
         self.window.show()
         rsp = self.window.exec_()
 
-        if rsp == 0:
+        if rsp == 1:
             self.selectedLanguage = self.ui.get_language()
             displayLang = self.selectedLanguage.replace('radio', '')
             if displayLang == 'CPlusPlus':

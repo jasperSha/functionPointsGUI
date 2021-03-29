@@ -16,6 +16,14 @@ class Project:
                                                                                 self.productName,
                                                                                 self.creator,
                                                                                 self.comments)
+    def __deepcopy__(self, memo):
+        deepcopy_method = self.__deepcopy__
+        self.__deepcopy__ = None
+        cp = deepcopy(self, memo)
+        self.__deepcopy__ = deepcopy_method
+        cp.__deepcopy__ = deepcopy_method
+
+        return cp
 
     def add_pane_tab(self, paneTab):
         self.paneTabs.append(paneTab)

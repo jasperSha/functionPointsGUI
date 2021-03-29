@@ -29,9 +29,6 @@ class Ui_ValueAdjustmentFactorsWindow(object):
         self.label.setFont(font)
         self.label.setObjectName("label")
 
-        self.buttonBox.accepted.connect(ValueAdjustmentFactorsWindow.close)        
-        self.buttonBox.rejected.connect(ValueAdjustmentFactorsWindow.close)
-        
         self.formLayoutWidget = QtWidgets.QWidget(ValueAdjustmentFactorsWindow)
         self.formLayoutWidget.setGeometry(QtCore.QRect(70, 60, 666, 371))
         self.formLayoutWidget.setObjectName("formLayoutWidget")

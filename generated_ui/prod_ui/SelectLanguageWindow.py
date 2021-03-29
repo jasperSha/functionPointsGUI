@@ -22,8 +22,8 @@ class Ui_SelectLanguageWindow(object):
         self.confirmationBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.confirmationBox.setObjectName("confirmationBox")
 
-        self.confirmationBox.accepted.connect(SelectLanguageWindow.close)
-        self.confirmationBox.rejected.connect(SelectLanguageWindow.close)
+        self.confirmationBox.accepted.connect(SelectLanguageWindow.accept)
+        self.confirmationBox.rejected.connect(SelectLanguageWindow.reject)
 
         self.label = QtWidgets.QLabel(SelectLanguageWindow)
         self.label.setGeometry(QtCore.QRect(30, 20, 231, 41))

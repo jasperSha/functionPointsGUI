@@ -1,5 +1,6 @@
 import pickle
 import sys
+from copy import deepcopy
 
 from Project import Project
 from Pane import Pane
@@ -92,9 +93,9 @@ class App(QMainWindow, Ui_MainWindow):
         if rsp == QtWidgets.QDialog.Accepted:
             paneName = self.ui.getPaneName()
 
-            defaultPane = UseCasePane(paneID=paneName)
+            ucpPane = UseCasePane(paneID=paneName)
             tab = QWidget()
-            App.currentProject.add_pane_tab(MyUCPTab(tab, pane=defaultPane))
+            App.currentProject.add_pane_tab(MyUCPTab(tab, pane=ucpPane))
 
             index = self.tabs.addTab(tab, paneName)
             self.tabs.setCurrentIndex(index)
@@ -114,6 +115,7 @@ class App(QMainWindow, Ui_MainWindow):
             
             tab = QWidget()
             App.currentProject.add_pane_tab(MyWeightFactorsTab(tab, pane=defaultPane, languagePreference=self.languagePreference))
+            App.currentProject.add_pane(defaultPane)
 
             index = self.tabs.addTab(tab, paneName)
             self.tabs.setCurrentIndex(index)
@@ -184,22 +186,47 @@ class App(QMainWindow, Ui_MainWindow):
 
             #get pane objects (not the tabs)
             for loadPane in loadProject.get_panes():
-                newPane = Pane(loadPane.get_name())
-                newPane.set_VAF(loadPane.get_VAF())
-                newPane.set_codeSize(loadPane.get_codeSize())
-                newPane.set_totalCount(loadPane.get_totalCount())
-                newPane.set_computedFP(loadPane.get_computedFP())
-                newPane.set_inputValues(loadPane.get_inputValues())
-                newPane.set_outputValues(loadPane.get_outputValues())
-                newPane.set_selectedLanguage(loadPane.get_selectedLanguage())
-                newPane.set_inputWeights(loadPane.get_inputWeights())                
+                if loadPane.is_ucp_pane():
+                    newPane = UseCasePane(loadPane.get_ID())
+                    newPane.set_tcfFactors(loadPane.get_tcfFactors())
+                    newPane.set_ecfFactors(loadPane.get_ecfFactors())
+                    newPane.set_uucw(loadPane.get_uucw())
+                    newPane.set_uaw(loadPane.get_uaw())
+                    newPane.set_tcf(loadPane.get_tcf())
+                    newPane.set_ecf(loadPane.get_ecf())
+                    newPane.set_uucwTotal(loadPane.get_uucwTotal())
+                    newPane.set_uawTotal(loadPane.get_uawTotal())
+                    newPane.set_uucp(loadPane.get_uucp())
+                    newPane.set_PF(loadPane.get_PF())
+                    newPane.set_UCP(loadPane.get_UCP())
+                    newPane.set_locucp(loadPane.get_locucp())
+                    newPane.set_locPM(loadPane.get_locPM())
+                    newPane.set_estLOC(loadPane.get_estLOC())
+                    newPane.set_estPM(loadPane.get_estPM())
+                    newPane.set_estHours(loadPane.get_estHours())
+                else:      
+                    newPane = Pane(loadPane.get_name())
+                    newPane.set_inputValues(loadPane.get_inputValues())
+                    newPane.set_inputWeights(loadPane.get_inputWeights())
+                    newPane.set_outputValues(loadPane.get_outputValues())
+                    newPane.set_VAF(loadPane.get_VAF())
+                    newPane.set_totalCount(loadPane.get_totalCount())
+                    newPane.set_computedFP(loadPane.get_computedFP())
+                    newPane.set_selectedLanguage(loadPane.get_selectedLanguage())
+                    newPane.set_codeSize(loadPane.get_codeSize())
 
                 tab = QWidget()
-                App.currentProject.add_pane_tab(MyWeightFactorsTab(tab, loaded=True, pane=newPane))
+                if newPane.is_ucp_pane():
+                    App.currentProject.add_pane_tab(MyUCPTab(tab, loaded=True, pane=newPane))
+                    name = newPane.get_ID()
+                    index = self.tabs.addTab(tab, name)
+                    self.tabs.setCurrentIndex(index)
+                else:
+                    App.currentProject.add_pane_tab(MyWeightFactorsTab(tab, loaded=True, pane=newPane))
+                    name = newPane.get_name()
+                    index = self.tabs.addTab(tab, name)
+                    self.tabs.setCurrentIndex(index)
                 
-                name = newPane.get_name()
-                index = self.tabs.addTab(tab, name)
-                self.tabs.setCurrentIndex(index)
             self.win.setWindowTitle('CECS 543 Metrics Suite - ' + App.currentProject.get_project_name())
     
         
@@ -217,23 +244,43 @@ class App(QMainWindow, Ui_MainWindow):
             #get pane TAB objects (not the panes, need to pull info from these, convert to regular panes for pickle)
             allPaneTabs = App.currentProject.get_pane_tabs()
             for paneTab in allPaneTabs:
-                savePane = Pane(paneTab.get_paneName())
-                savePane.set_inputValues(paneTab.get_inputValues())
-                savePane.set_inputWeights(paneTab.get_inputWeights())
-                savePane.set_outputValues(paneTab.get_outputValues())
-                savePane.set_VAF(paneTab.get_VAF())
-                savePane.set_totalCount(paneTab.get_totalCount())
-                savePane.set_computedFP(paneTab.get_computedFP())
-                savePane.set_selectedLanguage(paneTab.get_selectedLanguage())
-                savePane.set_codeSize(paneTab.get_codeSize())
+                if paneTab.is_ucp_pane():
+                    savePane = UseCasePane(paneTab.get_ID())
+                    savePane.set_tcfFactors(paneTab.get_tcfFactors())
+                    savePane.set_ecfFactors(paneTab.get_ecfFactors())
+                    savePane.set_uucw(paneTab.get_uucw())
+                    savePane.set_uaw(paneTab.get_uaw())
+                    savePane.set_tcf(paneTab.get_tcf())
+                    savePane.set_ecf(paneTab.get_ecf())
+                    savePane.set_uucwTotal(paneTab.get_uucwTotal())
+                    savePane.set_uawTotal(paneTab.get_uawTotal())
+                    savePane.set_uucp(paneTab.get_uucp())
+                    savePane.set_PF(paneTab.get_PF())
+                    savePane.set_UCP(paneTab.get_UCP())
+                    savePane.set_locucp(paneTab.get_locucp())
+                    savePane.set_locPM(paneTab.get_locPM())
+                    savePane.set_estLOC(paneTab.get_estLOC())
+                    savePane.set_estPM(paneTab.get_estPM())
+                    savePane.set_estHours(paneTab.get_estHours())
+                else:
+                    savePane = Pane(paneTab.get_name())
+                    savePane.set_inputValues(paneTab.get_inputValues())
+                    savePane.set_inputWeights(paneTab.get_inputWeights())
+                    savePane.set_outputValues(paneTab.get_outputValues())
+                    savePane.set_VAF(paneTab.get_VAF())
+                    savePane.set_totalCount(paneTab.get_totalCount())
+                    savePane.set_computedFP(paneTab.get_computedFP())
+                    savePane.set_selectedLanguage(paneTab.get_selectedLanguage())
+                    savePane.set_codeSize(paneTab.get_codeSize())
 
                 savedTabs.append(savePane)
-
+            
             saveProject = Project(App.currentProject.get_project_name())
             saveProject.set_creator_name(App.currentProject.get_creator_name())
             saveProject.set_product_name(App.currentProject.get_product_name())
             saveProject.set_comments(App.currentProject.get_comments())
 
+            #saving pane objects
             saveProject.save_panes(savedTabs)
 
             filename = save_dialog.selectedFiles()[0]

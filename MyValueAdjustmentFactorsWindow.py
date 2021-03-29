@@ -6,9 +6,10 @@ class MyValueAdjustmentFactorsWindow(QDialog, Ui_ValueAdjustmentFactorsWindow):
     def __init__(self, window, vaf):
         QDialog.__init__(self, window)
         self.setupUi(window)
-        self.prevVAF = vaf
-        self.VAF = vaf
-        self.currVAF = vaf
+
+        # these are copies only after one level (the elements share mem address until mutated)
+        self.prevVAF = list(vaf)
+        self.currVAF = list(vaf)
         
         self.first.setCurrentText(str(vaf[0]))
         self.second.setCurrentText(str(vaf[1]))
@@ -39,18 +40,35 @@ class MyValueAdjustmentFactorsWindow(QDialog, Ui_ValueAdjustmentFactorsWindow):
         self.twelfth.activated.connect(self.fp_input)
         self.thirteenth.activated.connect(self.fp_input)
         self.fourteenth.activated.connect(self.fp_input)
-
-        self.buttonBox.accepted.connect(self.fp_input)
+        
         self.buttonBox.rejected.connect(self.cancel)
 
-    def get_VAF(self):
-        return self.VAF
+        self.buttonBox.accepted.connect(self.vafWin.accept)
+        self.buttonBox.rejected.connect(self.vafWin.reject)
+        
+
+    def get_newVAF(self):
+        return self.currVAF
+    
+    def get_oldVAF(self):
+        return self.prevVAF
     
     def cancel(self):
-        self.VAF = self.prevVAF
+        self.first.setCurrentText(str(self.prevVAF[0]))
+        self.second.setCurrentText(str(self.prevVAF[1]))
+        self.third.setCurrentText(str(self.prevVAF[2]))
+        self.fourth.setCurrentText(str(self.prevVAF[3]))
+        self.fifth.setCurrentText(str(self.prevVAF[4]))
+        self.sixth.setCurrentText(str(self.prevVAF[5]))
+        self.seventh.setCurrentText(str(self.prevVAF[6]))
+        self.eighth.setCurrentText(str(self.prevVAF[7]))
+        self.ninth.setCurrentText(str(self.prevVAF[8]))
+        self.tenth.setCurrentText(str(self.prevVAF[9]))
+        self.eleventh.setCurrentText(str(self.prevVAF[10]))
+        self.twelfth.setCurrentText(str(self.prevVAF[11]))
+        self.thirteenth.setCurrentText(str(self.prevVAF[12]))
+        self.fourteenth.setCurrentText(str(self.prevVAF[13]))
 
-    def set_VAF(self):
-        self.VAF = self.currVAF
 
     def fp_input(self):
         # # must set self.wftab = WeightFactorsTab in UI file manually for this to work

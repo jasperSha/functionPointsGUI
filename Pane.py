@@ -36,6 +36,9 @@ class Pane:
     
     def __repr__(self):
         return f"{self.paneID}\nVAF={self.VAF}\nFP={self.computedFP}\ninputValues={self.inputValues}\noutput={self.outputValues}\ntotalcount={self.totalCount}\nlang={self.language}\n"
+    
+    def is_ucp_pane(self):
+        return False
 
     def get_name(self):
         return self.name

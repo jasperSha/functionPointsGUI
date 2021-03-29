@@ -25,7 +25,6 @@ class MySelectLanguageWindow(QDialog, Ui_SelectLanguageWindow):
         for btn in self.languageGroup.buttons():
             if btn.objectName() == self.lang:
                 btn.setChecked(True)
-                return
 
     def set_language(self):
         for btn in self.languageGroup.buttons():
