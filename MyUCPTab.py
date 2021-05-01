@@ -1,4 +1,4 @@
-from generated_ui.dev_ui.UCPTab import *
+from generated_ui.prod_ui.UCPTab import *
 from MyTCFWindow import MyTCFWindow
 from MyECFWindow import MyECFWindow
 

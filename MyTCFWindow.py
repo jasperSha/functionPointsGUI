@@ -1,4 +1,4 @@
-from generated_ui.dev_ui.tcfWindow import *
+from generated_ui.prod_ui.tcfWindow import *
 from PyQt5.QtWidgets import *
 
 import copy

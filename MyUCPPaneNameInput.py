@@ -1,4 +1,4 @@
-from generated_ui.dev_ui.UCPPaneNameInput import *
+from generated_ui.prod_ui.UCPPaneNameInput import *
 from PyQt5.QtWidgets import *
 
 class MyUCPPaneNameInput(Ui_UCPPaneNameInput):
